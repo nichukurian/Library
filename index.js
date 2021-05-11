@@ -1,0 +1,121 @@
+const express=require('express');
+const nav=[
+    {name:"Books",link:"/books"},
+    {name:"Authors",link:"/authors"},
+    {name:"New Book",link:"/books/create"},
+    {name:"New Author",link:"/authors/create"},
+    {name:"SignUp",link:"/signup"},
+    {name:"LogIn",link:"/logIn"}
+];
+
+
+const bookRouter=require('./src/routes/bookRoutes')(nav);
+const authorRouter=require('./src/routes/authorRoutes')(nav);
+const app =new express();
+
+app.set("view engine","ejs");
+app.set('views',"./src/views");
+app.use(express.static('./public'));
+app.use("/books",bookRouter);
+app.use("/authors",authorRouter);
+app.get('/',(req,res)=>{
+    res.redirect('/books');
+    // res.render("index",{
+    //     title:"Library",
+    //     nav:[{name:"Books",link:"/books"},{name:"Authors",link:"/authors"}]})
+        
+    });
+app.get("/login",(req,res)=>{
+    // res.send("login...");
+    res.render('form',{title:"Log In",
+       nav,
+       form:[
+       {
+        type:"email",
+        id:"email",
+        placeholder:"Enter your email",
+        onchange:"validate_email()",
+        label:"Email"
+    },
+    {
+        type:"password",
+        id:"password",
+        placeholder:"Choose your password",
+        onchange:"",
+        label:"Password"
+    },
+    
+    {
+        type:"submit",
+        id:"login",
+        value:"LogIn",
+        
+    }
+
+
+
+
+
+       ]
+    });
+});
+
+app.get("/signup",(req,res)=>{
+    // res.send("signup...");
+    res.render('form',{title:"Sign Up",
+       nav,
+       form:[{
+           type:"text",
+           id:"name",
+           placeholder:"Enter your name",
+           onchange:"",
+           label:"Full Name"
+       },
+       {
+        type:"email",
+        id:"email",
+        placeholder:"Enter your email",
+        onchange:"validate_email()",
+        label:"Email"
+    },{
+        type:"text",
+        id:"phone",
+        placeholder:"Enter your Phone Number",
+        onchange:"validate_phone()",
+        label:"Mobile Number"
+    },
+    {
+        type:"password",
+        id:"password",
+        placeholder:"Choose your password",
+        onchange:"validate_password()",
+        label:"Password"
+    },
+    {
+        type:"email",
+        id:"c-password",
+        placeholder:"Confirm your password",
+        onchange:"confirm_password()",
+        label:"Confirm Password"
+    },
+    {
+        type:"submit",
+        id:"signup",
+        value:"SignUp",
+        
+    }
+
+
+
+
+
+       ]
+    });
+});
+
+
+
+
+app.listen(8080,()=>{
+    console.log("server running....");
+});
