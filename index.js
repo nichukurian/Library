@@ -1,4 +1,5 @@
 const express=require('express');
+const port=process.env.PORT||8080;
 const nav=[
     {name:"Books",link:"/books"},
     {name:"Authors",link:"/authors"},
@@ -116,6 +117,6 @@ app.get("/signup",(req,res)=>{
 
 
 
-app.listen(8080,()=>{
-    console.log("server running....");
+app.listen(port,()=>{
+    console.log(`server running at ${port}....`);
 });
