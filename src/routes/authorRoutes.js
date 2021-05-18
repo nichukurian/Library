@@ -88,7 +88,7 @@ authorRouter.get('/create',(req,res)=>{
              {
                 type:"textarea",
                 id:"description",
-                placeholder:"Enter short discription about author",
+                placeholder:"Enter short description about author",
                 onchange:"",
                 label:"Author Description"
             },
