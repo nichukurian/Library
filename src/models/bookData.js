@@ -11,6 +11,7 @@ var bookSchema=new Schema(
         genre:String,
         image:String,
         description:String,
+        edited_by:String,
 
     }
 );

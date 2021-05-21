@@ -102,15 +102,15 @@ bookRouter.get("/",(req,res)=>{
         })
     })
 
-bookRouter.get('/:id',(req,res)=>{
+bookRouter.get('/single/:id',(req,res)=>{
     const id=req.params.id;
-    // res.send(`my id is ${id}`);
+    // res.send(`my id is ${books[id].description}`);
      res.render("singleb",{
         title:"Book",
          nav,
          single:books[id]
-     })
-})
+     });
+});
 
 
 

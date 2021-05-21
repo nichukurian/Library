@@ -104,7 +104,7 @@ authorRouter.get('/create',(req,res)=>{
         })
     });
 
-authorRouter.get('/:id',(req,res)=>{
+authorRouter.get('/single/:id',(req,res)=>{
     const id=req.params.id;
     // res.send(`my id is ${id}`);
      res.render("singlea",{
