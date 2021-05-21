@@ -40,7 +40,7 @@
   </div>
 </header>
 
-<div id="masthead">  
+<div id="masthead" style="background-color: rgba(255,255, 255,0);">  
   <div class="container">
     <div class="row">
       <div class="col-md-7">
@@ -48,7 +48,7 @@
           <p class="lead"></p>
         </h1>
       </div>
-      <div class="col-md-5">
+      <!-- <div class="col-md-5">
         <div class="well well-lg"> 
           <div class="row">
             <div class="col-sm-12">
@@ -57,11 +57,11 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div> 
   </div><!-- /cont -->
   
-  <div class="container">
+  <div style="visibility: hidden;" class="container">
     <div class="row">
       <div class="col-md-12">
         <div class="top-spacer"> </div>
@@ -77,14 +77,14 @@
     
     <div class="col-md-12"> 
       
-      <div class="panel">
+      <div style="background-color:rgba(255, 255, 255, 0.70);border-top-left-radius: 30px;border-top-right-radius: 30px;" class="panel">
         <div class="panel-body">
           
           
           
           <!--/stories-->
           <div style="margin-left: 30%;margin-right: 10%;">
-            <form action="">
+            <form action="/books" method="GET">
               <%for(i=0;i<form.length;i++){%>
               <div style="margin-bottom:5px;">
                 <%if(form[i].type!="submit"&&form[i].type!="textarea"){%>

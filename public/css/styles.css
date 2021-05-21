@@ -8,11 +8,18 @@
 body {
   padding-top:50px;
   color:#646464;
-  background-color:#efefef;
+  /* background-color:#efefef; */
+  background-image: url(../res/images/bg.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+}
+label{
+  color:black;
 }
 
 h1,h2,h3,.highlight,.navbar a,#masthead h4 {
   font-family:'Oswald',arial narrow,sans-serif;
+  color:black;
 }
 
 footer {
