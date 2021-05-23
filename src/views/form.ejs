@@ -44,7 +44,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-7">
-        <h1><%=title%>
+        <h1 style="text-shadow: 3px 3px gray;"><%=title%>
           <p class="lead"></p>
         </h1>
       </div>
@@ -89,7 +89,7 @@
               <div style="margin-bottom:5px;">
                 <%if(form[i].type!="submit"&&form[i].type!="textarea"){%>
                 <label style="display: block;width:150px" for="<%=form[i].id%>"><%=form[i].label%></label>
-                <input  id="<%=form[i].id%>"  type="<%=form[i].type%>" placeholder="<%=form[i].placeholder%>" oninput="<%=form[i].onchange%>">
+                <input  id="<%=form[i].id%>" name="<%=form[i].id%>"  type="<%=form[i].type%>" placeholder="<%=form[i].placeholder%>" oninput="<%=form[i].onchange%>">
                 <small id="<%=form[i].id%>-small"></small>
               </div>
               <%} else if(form[i].type=="textarea"){%>

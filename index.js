@@ -20,7 +20,7 @@ app.use(express.static('./public'));
 app.use("/books",bookRouter);
 app.use("/authors",authorRouter);
 app.get('/',(req,res)=>{
-    res.redirect('/books');
+    res.redirect('/login');
     // res.render("index",{
     //     title:"Library",
     //     nav:[{name:"Books",link:"/books"},{name:"Authors",link:"/authors"}]})
@@ -93,7 +93,7 @@ app.get("/signup",(req,res)=>{
         label:"Password"
     },
     {
-        type:"email",
+        type:"password",
         id:"c-password",
         placeholder:"Confirm your password",
         onchange:"confirm_password()",
