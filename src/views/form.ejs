@@ -84,7 +84,7 @@
           
           <!--/stories-->
           <div style="margin-left: 30%;margin-right: 10%;">
-            <form action="/books" method="GET">
+            <form action="<%=action%>" method="POST">
               <%for(i=0;i<form.length;i++){%>
               <div style="margin-bottom:5px;">
                 <%if(form[i].type!="submit"&&form[i].type!="textarea"){%>

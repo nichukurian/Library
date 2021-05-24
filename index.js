@@ -30,6 +30,7 @@ app.get("/login",(req,res)=>{
     // res.send("login...");
     res.render('form',{title:"Log In",
        nav,
+       action:'/auth',
        form:[
        {
         type:"email",
@@ -65,6 +66,7 @@ app.get("/signup",(req,res)=>{
     // res.send("signup...");
     res.render('form',{title:"Sign Up",
        nav,
+       action:'/adduser',
        form:[{
            type:"text",
            id:"name",

@@ -4,18 +4,16 @@ mongoose.connect('mongodb+srv://test-user:adminadmin@ictk-fsd.pqygx.mongodb.net/
 
 const Schema =mongoose.Schema;
 
-var bookSchema=new Schema(
+var userSchema=new Schema(
     {
         name:String,
-        author:String,
-        genre:String,
-        image:String,
-        description:String,
-        edited_by:String,
+        email:String,
+        password:String,
+        
 
     }
 );
 
-bookData=mongoose.model('BookData',bookSchema);
+userData=mongoose.model('userData',authorSchema);
  
-module.exports=bookData;
+module.exports=userrData;

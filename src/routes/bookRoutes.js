@@ -1,4 +1,5 @@
 const express=require('express');
+const bookData=require('../models/bookData')
 
 
 const bookRouter=new express.Router();
@@ -49,12 +50,14 @@ bookRouter.get("/",(req,res)=>{
         title:"Books",
         nav,
         list:books
+        
     })
     bookRouter.get('/create',(req,res)=>{
         // res.send("create a book man")
         res.render("form",{
             nav,
             title:"New Book",
+            action:'/addbook',
             form:[
                 {
                     type:"text",

@@ -1,5 +1,5 @@
 const express=require('express');
-const router = require('./bookRoutes');
+const autherData=require('../models/authorData')
 
 
 const authorRouter=new express.Router();
@@ -50,6 +50,7 @@ authorRouter.get("/",(req,res)=>{
         title:"Authors",
         nav,
         list:authors
+        
     })
 
 authorRouter.get('/create',(req,res)=>{
@@ -57,6 +58,7 @@ authorRouter.get('/create',(req,res)=>{
         res.render("form",{
             nav,
             title:"New Author",
+            action:'/addauthor',
             form:[
                 {
                     type:"text",
