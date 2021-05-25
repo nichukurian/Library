@@ -11,7 +11,7 @@ var authorSchema=new Schema(
         works:String,
         image:String,
         description:String,
-        edited_by:String,
+        
 
     }
 );

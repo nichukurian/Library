@@ -45,11 +45,17 @@ var books=[
 ];
 
 bookRouter.get("/",(req,res)=>{
+    bookData.find().then(
+        function(books)
+        {
+            res.render("listb",{
+                title:"Books",
+                nav,
+                list:books
+        }
+    );
 
-    res.render("listb",{
-        title:"Books",
-        nav,
-        list:books
+    
         
     })
     bookRouter.get('/create',(req,res)=>{
@@ -84,7 +90,7 @@ bookRouter.get("/",(req,res)=>{
                  value:""
              }, {
                 type:"file",
-                id:"cover-img",
+                id:"cover_img",
                 placeholder:"Upload cover image of the Book",
                 onchange:"",
                 label:"Image of the Book",
@@ -112,13 +118,89 @@ bookRouter.get("/",(req,res)=>{
 
 bookRouter.get('/single/:id',(req,res)=>{
     const id=req.params.id;
+    bookData.findOne({_id:id}).then(function(book){
+        res.render("singleb",{
+            title:"Book",
+             nav,
+             single:book
+         });
+    })
+
+
     // res.send(`my id is ${books[id].description}`);
-     res.render("singleb",{
-        title:"Book",
-         nav,
-         single:books[id]
-     });
+    
 });
+
+bookRouter.get('/update/:id',(req,res)=>{
+    const id=req.params.id;
+    bookData.findOne({_id:id}).then(function(book){
+
+        res.render("form",{
+            nav,
+            title:"New Book",
+            action:'/updatebook',
+            form:[{
+                type:"hidden",
+                id:"id",
+                value:id
+            },{
+                type:"hidden",
+                id:"image_hidden",
+                value:book.image
+            },
+                {
+                    type:"text",
+                    id:"name",
+                    placeholder:"Enter Book name",
+                    onchange:"",
+                    label:"Book Name",
+                    value:book.name
+                },
+                {
+                 type:"text",
+                 id:"author",
+                 placeholder:"Enter author of the Book",
+                 onchange:"",
+                 label:"Author",
+                 value:book.author
+             },
+             {
+                 type:"text",
+                 id:"genre",
+                 placeholder:"Enter Genre of the Book",
+                 onchange:"",
+                 label:"Genre",
+                 value:book.genre
+             }, {
+                type:"file",
+                id:"cover_img",
+                placeholder:"Upload cover image of the Book",
+                onchange:"",
+                label:"Image of the Book",
+                value:book.image
+            },
+              {
+                type:"textarea",
+                id:"description",
+                placeholder:"Enter few words about the Book",
+                onchange:"",
+                label:"Book Description",
+                value:book.description
+            },
+             
+             {
+                 type:"submit",
+                 id:"Update-Book",
+                 value:"Update Book"
+                 
+             }
+         
+            ]
+        })
+
+    })
+
+})
 
 
 

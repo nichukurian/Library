@@ -45,11 +45,16 @@ var authors=[
 ];
 
 authorRouter.get("/",(req,res)=>{
+    authorData.find().then(function(authors){
 
-    res.render("lista",{
-        title:"Authors",
-        nav,
-        list:authors
+        res.render("lista",{
+            title:"Authors",
+            nav,
+            list:authors
+        });
+    });
+
+   
         
     })
 
@@ -78,14 +83,14 @@ authorRouter.get('/create',(req,res)=>{
             },
             {
                 type:"text",
-                id:"first-book",
+                id:"first_book",
                 placeholder:"Enter First Book of the Author",
                 onchange:"",
                 label:"First Book",
                 value:""
             },{
                 type:"file",
-                id:"cover-img",
+                id:"cover_img",
                 placeholder:"Upload an image of the Author",
                 onchange:"",
                 label:"Image of The Author",
@@ -113,17 +118,22 @@ authorRouter.get('/create',(req,res)=>{
 
 authorRouter.get('/single/:id',(req,res)=>{
     const id=req.params.id;
+    author=autherData.findOne({_id:id}).then(function(author){
+        res.render("singlea",{
+            title:"Author",
+             nav,
+             single:author
+         })
+    }
+
+    )
     // res.send(`my id is ${id}`);
-     res.render("singlea",{
-        title:"Author",
-         nav,
-         single:authors[id]
-     })
+     
 });
 
 
 
-})
+
 
 return authorRouter;
 
