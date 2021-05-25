@@ -293,10 +293,35 @@ app.post('/updatebook',uploadImage.single('cover_img'),(req,res)=>{
         req.file={filename:req.body.image_hidden}
         
     }
+
+    if(req.body.description==""){}
     bookData.findOne({_id:id},function(err,book){
         
         book.name=req.body.name;
-        book.author=req.body.name;
+        book.author=req.body.author;
+        book.genre=req.body.genre;
+        book.image=req.file.filename;
+        book.description=req.body.description;
+        book.save();
+
+        res.redirect('/books');
+        
+    })
+});
+
+
+app.post('/updatebook',uploadImage.single('cover_img'),(req,res)=>{
+    const id=req.body.id;
+    if(!req.file){
+        req.file={filename:req.body.image_hidden}
+        
+    }
+
+    if(req.body.description==""){}
+    bookData.findOne({_id:id},function(err,book){
+        
+        book.name=req.body.name;
+        book.author=req.body.author;
         book.genre=req.body.genre;
         book.image=req.file.filename;
         book.description=req.body.description;

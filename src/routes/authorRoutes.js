@@ -132,6 +132,83 @@ authorRouter.get('/single/:id',(req,res)=>{
 });
 
 
+authorRouter.get('/update/:id',(req,res)=>{
+    const id=req.params.id;
+    authorData.findOne({_id:id}).then(function(author){
+
+        res.render("form",{
+            nav,
+            title:"Update Book",
+            action:'/updateauthor',
+            form:[{
+                type:"hidden",
+                id:"id",
+                value:id
+            },{
+                type:"hidden",
+                id:"image_hidden",
+                value:author.image
+            },{
+                type:"hidden",
+                id:"description_hidden",
+                value:author.description
+            },
+            {
+                type:"text",
+                id:"name",
+                placeholder:"Enter Author name",
+                onchange:"",
+                label:"Author Name",
+                value:author.name
+            },
+            {
+            type:"text",
+            id:"works",
+            placeholder:"Enter Notable Works of The Author",
+            onchange:"",
+            label:"Notable Works",
+            value:author.works
+        },
+        {
+            type:"text",
+            id:"first_book",
+            placeholder:"Enter First Book of the Author",
+            onchange:"",
+            label:"First Book",
+            value:author.first_book
+        },{
+            type:"file",
+            id:"cover_img",
+            placeholder:"Upload an image of the Author",
+            onchange:"",
+            label:"Image of The Author",
+            value:author.image
+        },
+         {
+            type:"textarea",
+            id:"description",
+            placeholder:"Enter short description about author",
+            onchange:"",
+            label:"Author Description",
+            value:author.description
+        },
+         
+         {
+             type:"submit",
+             id:"update-Book",
+             value:"Update Author",
+             
+         }
+     
+         
+            ]
+        })
+
+    })
+
+})
+
+
 
 
 
