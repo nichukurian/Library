@@ -65,34 +65,39 @@ authorRouter.get('/create',(req,res)=>{
                     id:"name",
                     placeholder:"Enter Author name",
                     onchange:"",
-                    label:"Author Name"
+                    label:"Author Name",
+                    value:""
                 },
                 {
                 type:"text",
                 id:"works",
                 placeholder:"Enter Notable Works of The Author",
                 onchange:"",
-                label:"Notable Works"
+                label:"Notable Works",
+                value:""
             },
             {
                 type:"text",
                 id:"first-book",
                 placeholder:"Enter First Book of the Author",
                 onchange:"",
-                label:"First Book"
+                label:"First Book",
+                value:""
             },{
                 type:"file",
                 id:"cover-img",
                 placeholder:"Upload an image of the Author",
                 onchange:"",
-                label:"Image of The Author"
+                label:"Image of The Author",
+                value:""
             },
              {
                 type:"textarea",
                 id:"description",
                 placeholder:"Enter short description about author",
                 onchange:"",
-                label:"Author Description"
+                label:"Author Description",
+                value:""
             },
              
              {

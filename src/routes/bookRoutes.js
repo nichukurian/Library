@@ -64,40 +64,45 @@ bookRouter.get("/",(req,res)=>{
                     id:"name",
                     placeholder:"Enter Book name",
                     onchange:"",
-                    label:"Book Name"
+                    label:"Book Name",
+                    value:""
                 },
                 {
                  type:"text",
                  id:"author",
                  placeholder:"Enter author of the Book",
                  onchange:"",
-                 label:"Author"
+                 label:"Author",
+                 value:""
              },
              {
                  type:"text",
                  id:"genre",
                  placeholder:"Enter Genre of the Book",
                  onchange:"",
-                 label:"Genre"
+                 label:"Genre",
+                 value:""
              }, {
                 type:"file",
                 id:"cover-img",
                 placeholder:"Upload cover image of the Book",
                 onchange:"",
-                label:"Image of the Book"
+                label:"Image of the Book",
+                value:""
             },
               {
                 type:"textarea",
                 id:"description",
                 placeholder:"Enter few words about the Book",
                 onchange:"",
-                label:"Book Description"
+                label:"Book Description",
+                value:""
             },
              
              {
                  type:"submit",
                  id:"create-Book",
-                 value:"Create Book",
+                 value:"Create Book"
                  
              }
          

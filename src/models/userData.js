@@ -9,11 +9,14 @@ var userSchema=new Schema(
         name:String,
         email:String,
         password:String,
+        phone:String
+        
+
         
 
     }
 );
 
-userData=mongoose.model('userData',authorSchema);
+userData=mongoose.model('userData',userSchema);
  
-module.exports=userrData;
+module.exports=userData;

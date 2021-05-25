@@ -84,7 +84,7 @@
           
           <!--/stories-->
           <div style="margin-left: 30%;margin-right: 10%;">
-            <form action="<%=action%>" method="POST">
+            <form action="<%=action%>" method="POST" enctype="multipart/form-data">
               <%for(i=0;i<form.length;i++){%>
               <div style="margin-bottom:5px;">
                 <%if(form[i].type!="submit"&&form[i].type!="textarea"){%>
@@ -94,7 +94,7 @@
               </div>
               <%} else if(form[i].type=="textarea"){%>
                 <label style="display: block;width:150px" for="<%=form[i].id%>"><%=form[i].label%></label>
-                <textarea rows="3" id="<%=form[i].id%>"  placeholder="<%=form[i].placeholder%>"></textarea>
+                <textarea rows="3" id="<%=form[i].id%>" name="<%=form[i].id%>" placeholder="<%=form[i].placeholder%>"></textarea>
 
               <%} else {%>
                 <input  type="submit" class="btn btn-primary" value="<%=form[i].value%>" id="<%=form[i].id%>">
