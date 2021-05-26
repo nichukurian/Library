@@ -208,7 +208,7 @@ app.get("/signup",(req,res)=>{
         label:"Password"
     },
     {
-        type:"password",
+        type:"password",Harry Potter is midway through his training as a wizard and his coming of age. Harry wants to get away from the pernicious Dursleys and go to the International Quidditch Cup with Hermione, Ron, and the Weasleys. He wants to dream about Cho Chang, his crush (and maybe do more than dream). He wants to find out about the mysterious event that's supposed to take place at Hogwarts this year, an event involving two other rival schools of magic, and a competition that hasn't happened for hundreds of years. He wants to be a normal, fourteen-year-old wizard. But unfortunately for Harry Potter, he's not normal - even by wizarding standards.And in his case, different can be deadly.
         id:"c-password",
         placeholder:"Confirm your password",
         onchange:"confirm_password()",
@@ -281,7 +281,7 @@ app.post('/addbook',uploadImage.single('cover_img'),(req,res,next)=>{
 
     let item={
         name:req.body.name,
-        author:req.body.name,
+        author:req.body.author,
         genre:req.body.genre,
         image:req.file.filename,
         description:req.body.description,
