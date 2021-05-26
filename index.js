@@ -108,9 +108,18 @@ const nav=[
     {name:"Authors",link:"/authors"},
     {name:"New Book",link:"/books/create"},
     {name:"New Author",link:"/authors/create"},
+    //{name:"SignUp",link:"/signup"},
+    {name:"LogOut",link:"/logIn"}
+];
+
+nav2=[
     {name:"SignUp",link:"/signup"},
     {name:"LogIn",link:"/logIn"}
-];
+
+]
+
+    
+
 
 
 const bookRouter=require('./src/routes/bookRoutes')(nav);
@@ -133,7 +142,7 @@ app.get('/',(req,res)=>{
 app.get("/login",(req,res)=>{
     // res.send("login...");
     res.render('form',{title:"Log In",
-       nav,
+       nav:nav2,
        action:'/auth',
        form:[
        {
@@ -169,7 +178,7 @@ app.get("/login",(req,res)=>{
 app.get("/signup",(req,res)=>{
     // res.send("signup...");
     res.render('form',{title:"Sign Up",
-       nav,
+       nav:nav2,
        action:'/adduser',
        form:[{
            type:"text",
@@ -294,14 +303,23 @@ app.post('/updatebook',uploadImage.single('cover_img'),(req,res)=>{
         
     }
 
-    if(req.body.description==""){}
+    if(req.body.description==""||req.body.description==" ")
+    {
+        req.body.description=req.body.description_hidden;
+    }
+
     bookData.findOne({_id:id},function(err,book){
         
         book.name=req.body.name;
         book.author=req.body.author;
         book.genre=req.body.genre;
         book.image=req.file.filename;
+        if(req.body.description==""||req.body.description==" ")
+    {
         book.description=req.body.description;
+    }
+
+        // book.description=req.body.description;
         book.save();
 
         res.redirect('/books');
@@ -310,7 +328,7 @@ app.post('/updatebook',uploadImage.single('cover_img'),(req,res)=>{
 });
 
 
-app.post('/updatebook',uploadImage.single('cover_img'),(req,res)=>{
+app.post('/updateauthor',uploadImage.single('cover_img'),(req,res)=>{
     const id=req.body.id;
     if(!req.file){
         req.file={filename:req.body.image_hidden}
@@ -323,19 +341,23 @@ app.post('/updatebook',uploadImage.single('cover_img'),(req,res)=>{
     }
 
 
-    res.send(`${req.body.name} ${req.file.filename} ${req.body.image}`);
-    // bookData.findOne({_id:id},function(err,book){
+    //res.send(`${req.body.name} ${req.file.filename} ${req.body.image}`);
+authorData.findOne({_id:id},function(err,author){
         
-    //     book.name=req.body.name;
-    //     book.author=req.body.author;
-    //     book.genre=req.body.genre;
-    //     book.image=req.file.filename;
-    //     book.description=req.body.description;
-    //     book.save();
+        author.name=req.body.name;
+        author.author=req.body.author;
+        author.genre=req.body.genre;
+        author.image=req.file.filename;
+        if(req.body.description!=""&&req.body.description!=" ")
+        {
+            author.description=req.body.description;
+        }
+        // author.description=req.body.description;
+        author.save();
 
-    //     res.redirect('/books');
+        res.redirect('/books');
         
-    // })
+    })
 });
 
 app.listen(port,()=>{
