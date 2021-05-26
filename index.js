@@ -317,19 +317,25 @@ app.post('/updatebook',uploadImage.single('cover_img'),(req,res)=>{
         
     }
 
-    if(req.body.description==""){}
-    bookData.findOne({_id:id},function(err,book){
-        
-        book.name=req.body.name;
-        book.author=req.body.author;
-        book.genre=req.body.genre;
-        book.image=req.file.filename;
-        book.description=req.body.description;
-        book.save();
+    if(req.body.description==""||req.body.description==" ")
+    {
+        req.body.description=req.body.description_hidden;
+    }
 
-        res.redirect('/books');
+
+    res.send(`${req.body.name} ${req.file.filename} ${req.body.image}`);
+    // bookData.findOne({_id:id},function(err,book){
         
-    })
+    //     book.name=req.body.name;
+    //     book.author=req.body.author;
+    //     book.genre=req.body.genre;
+    //     book.image=req.file.filename;
+    //     book.description=req.body.description;
+    //     book.save();
+
+    //     res.redirect('/books');
+        
+    // })
 });
 
 app.listen(port,()=>{
