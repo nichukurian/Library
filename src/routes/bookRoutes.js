@@ -137,7 +137,7 @@ bookRouter.get('/update/:id',(req,res)=>{
 
         res.render("form",{
             nav,
-            title:"New Book",
+            title:"Update Book",
             action:'/updatebook',
             form:[{
                 type:"hidden",
