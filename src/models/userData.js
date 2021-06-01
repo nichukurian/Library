@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 
-mongoose.connect('mongodb+srv://test-user:adminadmin@ictk-fsd.pqygx.mongodb.net/Library?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://testuser:87654321@ccet.9d3nv.mongodb.net/Library?retryWrites=true&w=majority');
 
 const Schema =mongoose.Schema;
 

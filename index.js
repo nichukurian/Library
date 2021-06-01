@@ -1,93 +1,11 @@
 const express=require('express');
 
-// const imageLoad=require('./src/imageLoad')
+
 const userData=require('./src/models/userData');
 const bookData=require('./src/models/bookData');
 const authorData=require('./src/models/authorData');
 const multer=require('multer');
-// const GridFsStorage=require('multer-gridfs-storage');
-// const mongo=require('mongodb');
 
-//  function loadImage(fileName){
-//     // let fileName = req.body.text1;  
-//   fileName='1621933733206-ictk-alch.jpg';
-//   let file;
-//     //Connect to the MongoDB client
-   
-//      var  connection=mongo.connect('mongodb+srv://test-user:adminadmin@ictk-fsd.pqygx.mongodb.net?retryWrites=true&w=majority', function(err, client){
-//         let connectionFile; 
-//         if(err){      
-//            return null;    
-//                }    
-//       const db = client.db('ictk-files-db');
-      
-//       const collection =  db.collection('photos.files');    
-//       const collectionChunks = db.collection('photos.chunks');collection.find({filename: fileName}).toArray(function(err, docs){        
-//       if(err){        
-//         return null;
-//       }
-//     if(!docs || docs.length === 0){        
-//       return null    
-//      }else{
-    
-//      //Retrieving the chunks from the db          
-//      collectionChunks.find({files_id : docs[0]._id})
-//        .sort({n: 1}).toArray(function(err, chunks){          
-//          if(err){            
-//             return null;    
-//           }
-//         if(!chunks || chunks.length === 0){            
-//           //No data found            
-//           return null          
-//         }
-      
-//       let fileData = [];          
-//       for(let i=0; i<chunks.length;i++){            
-//         //This is in Binary JSON or BSON format, which is stored               
-//         //in fileData array in base64 endocoded string format               
-       
-//         fileData.push(chunks[i].data.toString('base64'));          
-//       }
-//       //console.log(fileData);
-//        //Display the chunks using the data URI format     
-//       // console.log(docs[0].contentType);
-//        let finalFile = 'data:' + docs[0].contentType + ';base64,' 
-//             + fileData.join(''); 
-//         //console.log(finalFile);      
-//         file=finalFile;
-//         //console.log(file)
-//        });      
-//       }          
-//      }); 
-
-//    });
-
-//    file=connection.imageFile;
-//    return file;
-// }
-
-// const upload=multer({dest:})
-
-
-// var storage = new GridFsStorage({
-//     url: "mongodb+srv://test-user:adminadmin@ictk-fsd.pqygx.mongodb.net/ictk-files-db?retryWrites=true&w=majority",
-//     options: { useNewUrlParser: true, useUnifiedTopology: true },
-//     file: (req, file) => {
-//       const match = ["image/png", "image/jpeg"];
-  
-//       if (match.indexOf(file.mimetype) === -1) {
-//         const filename = `${Date.now()}-ictk-${file.originalname}`;
-//         return filename;
-//       }
-  
-//       return {
-//         bucketName: "photos",
-//         filename: `${Date.now()}-ictk-${file.originalname}`
-//       };
-//     }
-//   });
-
- // uploadImage=multer({storage:storage});
  const multerStorage = multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, "public/uploads");
