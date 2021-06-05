@@ -9,7 +9,8 @@ var userSchema=new Schema(
         name:String,
         email:String,
         password:String,
-        phone:String
+        phone:String,
+        role:String
         
 
         

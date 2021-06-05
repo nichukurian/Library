@@ -3,7 +3,7 @@ const express=require('express');
 
 const userData=require('./src/models/userData');
 const bookData=require('./src/models/bookData');
-const authorData=require('./src/models/authorData');
+
 const multer=require('multer');
 
  const multerStorage = multer.diskStorage({
@@ -23,9 +23,7 @@ uploadImage=multer({storage:multerStorage});
 const port=process.env.PORT||8080;
 const nav=[
     {name:"Books",link:"/books"},
-    {name:"Authors",link:"/authors"},
     {name:"New Book",link:"/books/create"},
-    {name:"New Author",link:"/authors/create"},
     //{name:"SignUp",link:"/signup"},
     {name:"LogOut",link:"/logIn"}
 ];
@@ -41,7 +39,7 @@ nav2=[
 
 
 const bookRouter=require('./src/routes/bookRoutes')(nav);
-const authorRouter=require('./src/routes/authorRoutes')(nav);
+
 const app =new express();
 
 app.set("view engine","ejs");
@@ -49,7 +47,6 @@ app.set('views',"./src/views");
 app.use(express.static('./public'));
 app.use(express.urlencoded({extended:true}));
 app.use("/books",bookRouter);
-app.use("/authors",authorRouter);
 app.get('/',(req,res)=>{
     res.redirect('/login');
     // res.render("index",{
@@ -117,6 +114,12 @@ app.get("/signup",(req,res)=>{
         placeholder:"Enter your Phone Number",
         onchange:"validate_phone()",
         label:"Mobile Number"
+    },{
+        type:"select",
+        id:"role",
+        placeholder:"What type of user are you",
+        onchange:"",
+        label:"Role"
     },
     {
         type:"password",
@@ -147,15 +150,17 @@ app.get("/signup",(req,res)=>{
     });
 });
 
-app.post('/adduser',(req,res)=>{
-    bookData.insert
+app.post('/adduser',uploadImage.none(),(req,res)=>{
+    
 
     let item={
         name:req.body.name,
         email:req.body.email,
         phone:req.body.phone,
-        password:req.body.password
+        password:req.body.password,
+        role:req.body.role
     }
+    console.log(item)
     user=userData(item);
     user.save().then(result =>{console.log(`${result} saved`)});
     res.redirect('/books')
@@ -176,21 +181,7 @@ app.post('/auth',uploadImage.none(),(req,res)=>{
         }
     })
 });
-app.post('/addauthor',uploadImage.single('cover_img'),(req,res,next)=>{
 
-
-    let item={
-        name:req.body.name,
-        first_book:req.body.first_book,
-        works:req.body.works,
-        image:req.file.filename,
-        description:req.body.description,
-        
-    }
-    author=authorData(item);
-    author.save();
-    res.redirect('/authors');
-});
 
 
 app.post('/addbook',uploadImage.single('cover_img'),(req,res,next)=>{
@@ -246,37 +237,7 @@ app.post('/updatebook',uploadImage.single('cover_img'),(req,res)=>{
 });
 
 
-app.post('/updateauthor',uploadImage.single('cover_img'),(req,res)=>{
-    const id=req.body.id;
-    if(!req.file){
-        req.file={filename:req.body.image_hidden}
-        
-    }
 
-    if(req.body.description==""||req.body.description==" ")
-    {
-        req.body.description=req.body.description_hidden;
-    }
-
-
-    //res.send(`${req.body.name} ${req.file.filename} ${req.body.image}`);
-authorData.findOne({_id:id},function(err,author){
-        
-        author.name=req.body.name;
-        author.author=req.body.author;
-        author.genre=req.body.genre;
-        author.image=req.file.filename;
-        if(req.body.description!=""&&req.body.description!=" ")
-        {
-            author.description=req.body.description;
-        }
-        // author.description=req.body.description;
-        author.save();
-
-        res.redirect('/books');
-        
-    })
-});
 
 app.listen(port,()=>{
     console.log(`server running at ${port}....`);
