@@ -8,10 +8,35 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link href="/css/bootstrap.min.css" rel="stylesheet">
 		<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link rel=”stylesheet” href=”https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css”>
 		<!--[if lt IE 9]>
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 		<link href="/css/styles.css" rel="stylesheet">
+    <style>
+      .search input[type=text]{
+        width:300px;
+        height:25px;
+        border-radius:25px;
+        border: none;
+    }
+         
+    .search{
+        float:right;
+        margin:7px;
+    }
+         
+    .search button{
+        background-color: #0074D9;
+        color: #f2f2f2;
+        float: right;
+        padding: 5px 10px;
+        margin-right: 16px;
+        font-size: 12px;
+        border: none;
+        cursor: pointer;
+    }
+    </style>
 	</head>
 	<body>
 <header  style="background-color: rgb(143, 83, 51);" class="navbar navbar-bright navbar-fixed-top" role="banner">
@@ -33,6 +58,7 @@
         </li>
         <%}%>
         
+        
       </ul>
       
       
@@ -47,6 +73,17 @@
         <h1 style="text-shadow: 3px 3px gray;"><%=title%>
           <p class="lead"></p>
         </h1>
+      </div>
+      <div class="search">
+        <form action="/books/single/60ba6ea9fc7e740644e83590">
+          <input type="text"
+              placeholder=" Search Courses"
+              name="search">
+          <button style="border-radius: 30px;">
+             search
+              </i>
+          </button>
+      </form>
       </div>
       <!-- <div class="col-md-5">
         <div class="well well-lg"> 
