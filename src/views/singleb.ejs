@@ -111,10 +111,20 @@
           </div>
 
 
-          
+          <%if(user.role=='library'){%>
+           <form  style="margin-left: 40%;" action="/addcopy/<%=user.id%>/<%=single._id%>" method="GET">
+              <input type="number" name="copy" value="<%=copys%>">
+              <input type="submit" value="Add Copy">
+          </form>
+            
+          <%} else {%>
+            <h1><%=copylist%></h1>
+            <%for(i=0;i<copylist.length;i++){%>
           <div style="background-color: rgba(128, 128, 128, 0.733);padding:5px;border-radius: 10px;border:4px solid gray">
-            <span><h3>Aksharadeepam Library . <span style="color:crimson">10 Copies</span></h3> <button style="color:black;">Reserve</button></span>
+            <span><h3><%=copylist[i].name%>. <span style="color:crimson"><%=copylist[i].copys%> Copies</span></h3> <button style="color:black;">Reserve</button></span>
           </div>
+          <%}%>
+          <%}%>
           <hr>
          
           <!--/stories-->

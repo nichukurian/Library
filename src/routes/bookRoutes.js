@@ -1,5 +1,7 @@
 const express=require('express');
-const bookData=require('../models/bookData')
+const bookData=require('../models/bookData');
+const libraryData=require('../models/libraryData');
+const userData=require('../models/userData');
 
 
 const bookRouter=new express.Router();
@@ -48,6 +50,7 @@ bookRouter.get("/",(req,res)=>{
     bookData.find().then(
         function(books)
         {
+            console.log(req.session);
             res.render("listb",{
                 title:"Books",
                 nav,
@@ -118,12 +121,79 @@ bookRouter.get("/",(req,res)=>{
 
 bookRouter.get('/single/:id',(req,res)=>{
     const id=req.params.id;
+    user={
+        name:req.session.user,
+        role:req.session.role,
+        id:req.session.userid,
+    }
+    
     bookData.findOne({_id:id}).then(function(book){
-        res.render("singleb",{
+        if(user.role=="library"){
+
+        libraryData.findOne({book:id,library:user.id}).then((entry)=>{
+            
+            copys=0;
+            if(entry)
+            {
+                copys=entry.copys;
+            }
+            res.render("singleb",{
             title:book.name,
              nav,
-             single:book
+             single:book,
+             user,
+             copys
          });
+        })}
+        else{
+
+            
+            
+            libraryData.find({book:id}).then((entries)=>{
+                let liblist=[];
+                
+                entries.forEach((entry)=>{
+                    // let name_library="";
+                    userData.findOne({_id:entry.library}).then((e)=>{
+                        if(e) {
+                        // name_library=e.name;
+                        
+                        console.log(e.name)
+                        console.log(entry.copys)
+                        console.log(e);
+                        liblist.push({name:e.name,copys:entry.copys})
+                        console.log(liblist)
+                        res.render("singleb",{
+                            title:book.name,
+                             nav,
+                             single:book,
+                             user,
+                             copylist:liblist
+                         });
+                        
+                        }
+    
+                       })
+                       
+                       //console.log(name_library);
+                    //liblist.push({name:name_library,copys:entry.copys})
+                });
+               
+                
+            });
+           
+            
+            // res.render("singleb",{
+            //     title:book.name,
+            //      nav,
+            //      single:book,
+            //      user,
+            //      copylist:liblist
+            //  });
+
+
+        }
+    
     })
 
 

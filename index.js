@@ -3,6 +3,9 @@ const express=require('express');
 
 const userData=require('./src/models/userData');
 const bookData=require('./src/models/bookData');
+const session=require('express-session');
+const cookie=require('cookie-parser');
+
 
 const multer=require('multer');
 
@@ -26,7 +29,7 @@ const nav=[
     {name:"New Book",link:"/books/create"},
     //{name:"SignUp",link:"/signup"},
     {name:"Notifications",link:"#"},
-    {name:"LogOut",link:"/logIn"}
+    {name:"LogOut",link:"/logout"}
     
 ];
 
@@ -47,10 +50,19 @@ const app =new express();
 app.set("view engine","ejs");
 app.set('views',"./src/views");
 app.use(express.static('./public'));
+app.use(cookie())
+app.use(session({secret:'Keep it secret'
+,name:'uniqueSessionID'
+,saveUninitialized:false}));
 app.use(express.urlencoded({extended:true}));
 app.use("/books",bookRouter);
 app.get('/',(req,res)=>{
-    res.redirect('/login');
+    if(req.session.loggedIn){
+        res.redirect('/books')
+    }
+    else{
+        res.redirect('/login');
+    }   
     // res.render("index",{
     //     title:"Library",
     //     nav:[{name:"Books",link:"/books"},{name:"Authors",link:"/authors"}]})
@@ -58,6 +70,7 @@ app.get('/',(req,res)=>{
     });
 app.get("/login",(req,res)=>{
     // res.send("login...");
+    console.log(req.session);
     res.render('form',{title:"Log In",
        nav:nav2,
        action:'/auth',
@@ -151,6 +164,22 @@ app.get("/signup",(req,res)=>{
        ]
     });
 });
+app.get('/logout',(req,res)=>{
+    if(req.session.loggedIn){
+        req.session.loggedIn=false;
+        req.session.user="";
+        req.session.phone="";
+        req.session.role="";
+        req.session.email="";
+        req.session.userid="";
+        res.redirect('/login');
+        
+    }
+    else{
+        res.redirect('/login');
+
+    }
+})
 app.get('/search',(req,res)=>{
     search=req.query.search
     search.replace('+',' ')
@@ -171,6 +200,15 @@ app.get('/search',(req,res)=>{
     })
 
 })
+app.get('/addcopy/:libid/:bookid',(req,res)=>{
+    copy=req.query.copy;
+    lib=req.params.libid;
+    book=req.params.bookid;
+    libraryData.findOneAndUpdate({library:lib,book:book},{copys:copy},{upsert:true,new:true}).then((entry)=>{
+        console.log(entry);
+    });
+    res.redirect('/books/single/'+book);
+})
 
 app.post('/adduser',uploadImage.none(),(req,res)=>{
     
@@ -185,7 +223,7 @@ app.post('/adduser',uploadImage.none(),(req,res)=>{
     console.log(item)
     user=userData(item);
     user.save().then(result =>{console.log(`${result} saved`)});
-    res.redirect('/books')
+    res.redirect('/login')
 
 
 
@@ -196,7 +234,13 @@ app.post('/auth',uploadImage.none(),(req,res)=>{
         //console.log(`${err} and  ${user}`)
         // console.log(user);
         if(user){
-        res.redirect('/books');
+            req.session.loggedIn=true;
+            req.session.user=user.name;
+            req.session.phone=user.phone;
+            req.session.role=user.role;
+            req.session.email=user.email;
+            req.session.userid=user._id;
+            res.redirect('/books');
         }
         else{
             res.redirect('/login');
