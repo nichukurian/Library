@@ -25,7 +25,9 @@ const nav=[
     {name:"Books",link:"/books"},
     {name:"New Book",link:"/books/create"},
     //{name:"SignUp",link:"/signup"},
+    {name:"Notifications",link:"#"},
     {name:"LogOut",link:"/logIn"}
+    
 ];
 
 nav2=[
@@ -149,6 +151,26 @@ app.get("/signup",(req,res)=>{
        ]
     });
 });
+app.get('/search',(req,res)=>{
+    search=req.query.search
+    search.replace('+',' ')
+    console.log(search)
+    bookData.findOne({name:search}).then((book)=>{
+        //console.log(`${err} and  ${user}`)
+        // console.log(user);
+        console.log(book)
+        if(book){
+        console.log(book)
+        res.redirect('/books/single/'+book._id);
+       
+        }
+        else{
+            res.redirect('/books');
+        }
+
+    })
+
+})
 
 app.post('/adduser',uploadImage.none(),(req,res)=>{
     

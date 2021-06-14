@@ -120,7 +120,7 @@ bookRouter.get('/single/:id',(req,res)=>{
     const id=req.params.id;
     bookData.findOne({_id:id}).then(function(book){
         res.render("singleb",{
-            title:"Book",
+            title:book.name,
              nav,
              single:book
          });
