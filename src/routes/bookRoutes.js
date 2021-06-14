@@ -163,6 +163,7 @@ bookRouter.get('/single/:id',(req,res)=>{
                         console.log(e);
                         liblist.push({name:e.name,copys:entry.copys})
                         console.log(liblist)
+                        if(liblist.length==entries.length){
                         res.render("singleb",{
                             title:book.name,
                              nav,
@@ -170,7 +171,7 @@ bookRouter.get('/single/:id',(req,res)=>{
                              user,
                              copylist:liblist
                          });
-                        
+                        }
                         }
     
                        })
