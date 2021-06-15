@@ -28,7 +28,7 @@ const nav=[
     {name:"Books",link:"/books"},
     {name:"New Book",link:"/books/create"},
     //{name:"SignUp",link:"/signup"},
-    {name:"Notifications",link:"#"},
+    {name:"Notifications",link:"/notifications"},
     {name:"LogOut",link:"/logout"}
     
 ];
@@ -198,8 +198,18 @@ app.get('/search',(req,res)=>{
         }
 
     })
+    
 
 })
+app.get('/notifications',(req,res)=>{
+    user={
+        name:req.session.user,
+        role:req.session.role,
+        id:req.session.userid,
+    }
+
+    res.render('notification',{user,title:"Notifications",nav});
+});
 app.get('/addcopy/:libid/:bookid',(req,res)=>{
     copy=req.query.copy;
     lib=req.params.libid;
